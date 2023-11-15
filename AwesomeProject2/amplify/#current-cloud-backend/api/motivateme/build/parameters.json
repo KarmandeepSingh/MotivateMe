@@ -1,0 +1,8 @@
+{
+    "CreateAPIKey": 1,
+    "AppSyncApiName": "motivateme",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "S3DeploymentBucket": "amplify-motivateme-dev-192826-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/6f1b27fc32cae9de233206a43bd796451da12cce"
+}

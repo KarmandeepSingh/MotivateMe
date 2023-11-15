@@ -1,0 +1,295 @@
+type AlbumCategory {
+  id: ID!
+  title: String!
+  albums(filter: ModelAlbumFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelAlbumConnection
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Album {
+  id: ID!
+  name: String!
+  by: String!
+  numberOfLikes: Int!
+  imageUri: String!
+  artistsHeadline: String!
+  songs(filter: ModelSongFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelSongConnection
+  albumCategoryId: ID!
+  albumCategory: AlbumCategory
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Song {
+  id: ID!
+  imageUri: String!
+  uri: String!
+  title: String!
+  artist: String!
+  albumId: ID!
+  album: Album
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelAlbumCategoryConnection {
+  items: [AlbumCategory]!
+  nextToken: String
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+input ModelAlbumCategoryFilterInput {
+  id: ModelIDInput
+  title: ModelStringInput
+  and: [ModelAlbumCategoryFilterInput]
+  or: [ModelAlbumCategoryFilterInput]
+  not: ModelAlbumCategoryFilterInput
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+type Query {
+  getAlbumCategory(id: ID!): AlbumCategory
+  listAlbumCategorys(filter: ModelAlbumCategoryFilterInput, limit: Int, nextToken: String): ModelAlbumCategoryConnection
+  getAlbum(id: ID!): Album
+  listAlbums(filter: ModelAlbumFilterInput, limit: Int, nextToken: String): ModelAlbumConnection
+  getSong(id: ID!): Song
+  listSongs(filter: ModelSongFilterInput, limit: Int, nextToken: String): ModelSongConnection
+}
+
+input CreateAlbumCategoryInput {
+  id: ID
+  title: String!
+}
+
+input UpdateAlbumCategoryInput {
+  id: ID!
+  title: String
+}
+
+input DeleteAlbumCategoryInput {
+  id: ID!
+}
+
+type Mutation {
+  createAlbumCategory(input: CreateAlbumCategoryInput!, condition: ModelAlbumCategoryConditionInput): AlbumCategory
+  updateAlbumCategory(input: UpdateAlbumCategoryInput!, condition: ModelAlbumCategoryConditionInput): AlbumCategory
+  deleteAlbumCategory(input: DeleteAlbumCategoryInput!, condition: ModelAlbumCategoryConditionInput): AlbumCategory
+  createAlbum(input: CreateAlbumInput!, condition: ModelAlbumConditionInput): Album
+  updateAlbum(input: UpdateAlbumInput!, condition: ModelAlbumConditionInput): Album
+  deleteAlbum(input: DeleteAlbumInput!, condition: ModelAlbumConditionInput): Album
+  createSong(input: CreateSongInput!, condition: ModelSongConditionInput): Song
+  updateSong(input: UpdateSongInput!, condition: ModelSongConditionInput): Song
+  deleteSong(input: DeleteSongInput!, condition: ModelSongConditionInput): Song
+}
+
+input ModelAlbumCategoryConditionInput {
+  title: ModelStringInput
+  and: [ModelAlbumCategoryConditionInput]
+  or: [ModelAlbumCategoryConditionInput]
+  not: ModelAlbumCategoryConditionInput
+}
+
+type Subscription {
+  onCreateAlbumCategory: AlbumCategory @aws_subscribe(mutations: ["createAlbumCategory"])
+  onUpdateAlbumCategory: AlbumCategory @aws_subscribe(mutations: ["updateAlbumCategory"])
+  onDeleteAlbumCategory: AlbumCategory @aws_subscribe(mutations: ["deleteAlbumCategory"])
+  onCreateAlbum: Album @aws_subscribe(mutations: ["createAlbum"])
+  onUpdateAlbum: Album @aws_subscribe(mutations: ["updateAlbum"])
+  onDeleteAlbum: Album @aws_subscribe(mutations: ["deleteAlbum"])
+  onCreateSong: Song @aws_subscribe(mutations: ["createSong"])
+  onUpdateSong: Song @aws_subscribe(mutations: ["updateSong"])
+  onDeleteSong: Song @aws_subscribe(mutations: ["deleteSong"])
+}
+
+type ModelAlbumConnection {
+  items: [Album]!
+  nextToken: String
+}
+
+input ModelAlbumFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  by: ModelStringInput
+  numberOfLikes: ModelIntInput
+  imageUri: ModelStringInput
+  artistsHeadline: ModelStringInput
+  albumCategoryId: ModelIDInput
+  and: [ModelAlbumFilterInput]
+  or: [ModelAlbumFilterInput]
+  not: ModelAlbumFilterInput
+}
+
+input CreateAlbumInput {
+  id: ID
+  name: String!
+  by: String!
+  numberOfLikes: Int!
+  imageUri: String!
+  artistsHeadline: String!
+  albumCategoryId: ID!
+}
+
+input UpdateAlbumInput {
+  id: ID!
+  name: String
+  by: String
+  numberOfLikes: Int
+  imageUri: String
+  artistsHeadline: String
+  albumCategoryId: ID
+}
+
+input DeleteAlbumInput {
+  id: ID!
+}
+
+input ModelAlbumConditionInput {
+  name: ModelStringInput
+  by: ModelStringInput
+  numberOfLikes: ModelIntInput
+  imageUri: ModelStringInput
+  artistsHeadline: ModelStringInput
+  albumCategoryId: ModelIDInput
+  and: [ModelAlbumConditionInput]
+  or: [ModelAlbumConditionInput]
+  not: ModelAlbumConditionInput
+}
+
+type ModelSongConnection {
+  items: [Song]!
+  nextToken: String
+}
+
+input ModelSongFilterInput {
+  id: ModelIDInput
+  imageUri: ModelStringInput
+  uri: ModelStringInput
+  title: ModelStringInput
+  artist: ModelStringInput
+  albumId: ModelIDInput
+  and: [ModelSongFilterInput]
+  or: [ModelSongFilterInput]
+  not: ModelSongFilterInput
+}
+
+input CreateSongInput {
+  id: ID
+  imageUri: String!
+  uri: String!
+  title: String!
+  artist: String!
+  albumId: ID!
+}
+
+input UpdateSongInput {
+  id: ID!
+  imageUri: String
+  uri: String
+  title: String
+  artist: String
+  albumId: ID
+}
+
+input DeleteSongInput {
+  id: ID!
+}
+
+input ModelSongConditionInput {
+  imageUri: ModelStringInput
+  uri: ModelStringInput
+  title: ModelStringInput
+  artist: ModelStringInput
+  albumId: ModelIDInput
+  and: [ModelSongConditionInput]
+  or: [ModelSongConditionInput]
+  not: ModelSongConditionInput
+}

@@ -1,0 +1,28 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-motivateme-dev-192826-authRole",
+      "UnauthRoleArn": "arn:aws:iam::977030278823:role/amplify-motivateme-dev-192826-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::977030278823:role/amplify-motivateme-dev-192826-authRole",
+      "Region": "ca-central-1",
+      "DeploymentBucketName": "amplify-motivateme-dev-192826-deployment",
+      "UnauthRoleName": "amplify-motivateme-dev-192826-unauthRole",
+      "StackName": "amplify-motivateme-dev-192826",
+      "StackId": "arn:aws:cloudformation:ca-central-1:977030278823:stack/amplify-motivateme-dev-192826/1ca67fa0-357a-11ee-b36a-069fdb112f54",
+      "AmplifyAppId": "d32nhmms3mckbj"
+    },
+    "categories": {
+      "api": {
+        "motivateme": {}
+      },
+      "auth": {
+        "motivateme3e0ab0d0": {},
+        "motivateme6276b2b4": {},
+        "MotivateMe": {}
+      },
+      "storage": {
+        "album": {}
+      }
+    }
+  }
+}
